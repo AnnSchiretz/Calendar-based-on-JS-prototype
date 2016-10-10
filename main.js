@@ -205,15 +205,61 @@
                     return memo;
 				}, []);
 			}
-            var icon = createElement('i', 'fa fa-check-circle-o fa-2x');
-            icon.className = 'fa fa-check-circle-o fa-2x';
-            var eventParagraph = createElement('p', 0, todayEvents);
+            //var icon = createElement('i', 'fa fa-check-circle-o fa-2x');
+            //icon.className = 'fa fa-check-circle-o fa-2x';
+            //var eventParagraph = createElement('p', 0, todayEvents);
             event = createElement('div', 'event in');
-            event.appendChild(icon);
-            event.appendChild(eventParagraph);
+            this.renderEvents(todayEvents, event);
+            //event.appendChild(icon);
+            //event.appendChild(eventParagraph);
             this.eventsBody.appendChild(event);
         }
         this.headerCurrentDay.innerHTML = day.format('DD.MM.YYYY ' + '(dddd)');
+    };
+    Calendar.prototype.renderEvents = function (events, ele) {
+        var currentWrapper = ele.querySelector('.events');
+        var wrapper = createElement('div', 'event in' + (currentWrapper ? 'new': ''));
+
+        events.forEach(function (ev) {
+            var span = createElement('span');
+            var i = createElement('i', 'fa fa-check fa-2x');
+            var p = createElement('p');
+
+            span.appendChild(i);
+            wrapper.appendChild(span);
+            wrapper.appendChild(p);
+        });
+
+        if(!events.length) {
+            var span = createElement('span');
+            var emptyIcon = createElement('i', 'fa fa-times fa-2x');
+            var emptyMsg = createElement('p', 0, 'Няма мерапрыемсваў');
+            span.appendChild(emptyIcon);
+            wrapper.appendChild(span);
+            wrapper.appendChild(emptyMsg);
+        }
+
+        if(currentWrapper) {
+            currentWrapper.className = 'event out';
+            currentWrapper.addEventListener('webkitAnimationEnd', function() {
+                currentWrapper.parentNode.removeChild(currentWrapper);
+                ele.appendChild(wrapper);
+            });
+            currentWrapper.addEventListener('oanimationend', function() {
+                currentWrapper.parentNode.removeChild(currentWrapper);
+                ele.appendChild(wrapper);
+            });
+            currentWrapper.addEventListener('msAnimationEnd', function() {
+                currentWrapper.parentNode.removeChild(currentWrapper);
+                ele.appendChild(wrapper);
+            });
+            currentWrapper.addEventListener('animationend', function() {
+                currentWrapper.parentNode.removeChild(currentWrapper);
+                ele.appendChild(wrapper);
+            });
+        } else {
+            ele.appendChild(wrapper);
+        }
     };
     Calendar.prototype.currentMonth = function () {
         var clone = this.current.clone();
