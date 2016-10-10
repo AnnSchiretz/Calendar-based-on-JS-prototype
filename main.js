@@ -210,6 +210,7 @@
             //var eventParagraph = createElement('p', 0, todayEvents);
             event = createElement('div', 'event in');
             this.renderEvents(todayEvents, event);
+
             //event.appendChild(icon);
             //event.appendChild(eventParagraph);
             this.eventsBody.appendChild(event);
@@ -223,11 +224,11 @@
         events.forEach(function (ev) {
             var span = createElement('span');
             var i = createElement('i', 'fa fa-check fa-2x');
-            var p = createElement('p');
+            var paragraph = createElement('p', 0, ev.eventName);
 
             span.appendChild(i);
             wrapper.appendChild(span);
-            wrapper.appendChild(p);
+            wrapper.appendChild(paragraph);
         });
 
         if(!events.length) {
@@ -321,8 +322,8 @@
 }();
 (function () {
     var data = [
-        {eventName: 'Lorem ipsum', color: 'white', date: '2016-10-07'},
-        {eventName: 'Lorem ipsum', color: 'white', date: '2016-10-12'},
+        {eventName: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ligula ac elit rhoncus facilisis. Pellentesque eget volutpat tellus. Morbi lacus sem, vehicula id pellentesque a, condimentum non neque. Donec ultrices gravida bibendum. Suspendisse ut elit quam. Curabitur porttitor rutrum eros sit amet viverra. Nullam et molestie risus. Morbi vitae nisl pulvinar, aliquam ligula non, semper odio.', color: 'white', date: '2016-10-07'},
+        {eventName: 'Lorem ipsum', color: 'white', date: '2016-10-01'},
         {eventName: 'Lorem ipsum', color: 'white', date: '2016-10-13'},
         {eventName: 'Lorem ipsum', color: 'white', date: '2016-10-10'}
     ];

@@ -148,7 +148,6 @@ ul {
 .events-header h2 {
     font-size: 18px;
 }
-
 .event.fa-2x {
     font-weight: 100;
     color: rgba(32, 54, 55, 1);
@@ -370,10 +369,17 @@ ul {
     height: 1px;
     background-color: #fff;
 }
-/* TEST */
-.event-box {
-    height: 75px;
-    padding: 7px;
-    overflow-y: auto;
-    overflow-x: hidden;
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgba(0,0,0,.5);
+}
+
+::-webkit-scrollbar-thumb {
+    border: none;
+    background-color: rgba(255,255,255,.5);
+    transition: background-color .5s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: aqua;
 }
