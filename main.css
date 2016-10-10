@@ -175,7 +175,7 @@ ul {
 }
 
 .day.other {
-    color: rgba(175, 178, 182, 1);
+    visibility: hidden;
 }
 
 /* === Pseudo-elements === */
@@ -355,4 +355,10 @@ ul {
 
 .calendar-header>h3 {
     text-transform: capitalize;
+}
+
+.white {
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
 }

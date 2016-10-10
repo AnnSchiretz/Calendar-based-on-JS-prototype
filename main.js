@@ -148,18 +148,28 @@
             this.month.appendChild(this.week);
         }
     };
-    Calendar.prototype.drawDay = function (day) {
+    Calendar.prototype.drawDay = function (day, elem) {
         var self = this;
         this.getWeek(day);
         var outer = createElement('div', this.getClassDay(day));
         outer.addEventListener('click', function () {
             self.openDay(this);
         });
-        //var name = createElement('div', 0, day.format('ddd'));
         var number = createElement('div', 'day-number', day.format('DD'));
-        var events = createElement('div', 'day-events');
         outer.appendChild(number);
-        outer.appendChild(events);
+        if (day.month() === this.current.month()) {
+            var todayEvents = this.events.reduce(function (memo, ev) {
+                if (moment(ev.date).isSame(day, 'day')) {
+                    memo.push(ev);
+                }
+                return memo;
+            }, []);
+
+            todayEvents.forEach(function (ev) {
+                var events = createElement('div', ev.color);
+                outer.appendChild(events);
+            });
+        }
         this.week.appendChild(outer);
     };
     Calendar.prototype.openDay = function (el) {
@@ -187,7 +197,20 @@
                 });
                 currentOpened.className = 'event out';
             }
+			if (day.month() === this.current.month()) {
+				var todayEvents = this.events.reduce(function(memo, ev) {
+					if (moment(ev.date).isSame(day, 'day')) {
+						memo.push(ev);
+					}
+                    return memo;
+				}, []);
+			}
+            var icon = createElement('i', 'fa fa-check-circle-o fa-2x');
+            icon.className = 'fa fa-check-circle-o fa-2x';
+            var eventParagraph = createElement('p', 0, todayEvents);
             event = createElement('div', 'event in');
+            event.appendChild(icon);
+            event.appendChild(eventParagraph);
             this.eventsBody.appendChild(event);
         }
         this.headerCurrentDay.innerHTML = day.format('DD.MM.YYYY ' + '(dddd)');
@@ -252,7 +275,10 @@
 }();
 (function () {
     var data = [
-        {date: '2016-10-07'}
+        {eventName: 'Lorem ipsum', color: 'white', date: '2016-10-07'},
+        {eventName: 'Lorem ipsum', color: 'white', date: '2016-10-12'},
+        {eventName: 'Lorem ipsum', color: 'white', date: '2016-10-13'},
+        {eventName: 'Lorem ipsum', color: 'white', date: '2016-10-10'}
     ];
     var calendar = new Calendar('#widget', data);
 }());
